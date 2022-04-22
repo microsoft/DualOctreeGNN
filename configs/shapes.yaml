@@ -1,0 +1,38 @@
+SOLVER:
+  gpu: 0,
+  run: evaluate
+  logdir: logs/shapes_eval
+  ckpt: logs/dfaust/dfaust/checkpoints/00600.model.pth
+  resolution: 420
+  sdf_scale: 0.9
+
+
+DATA:
+  test:
+    name: pointcloud
+    point_scale: 0.9
+
+    # octree building
+    depth: 8
+    full_depth: 3
+    node_dis: True
+    split_label: True
+    offset: 0.0
+
+    # data loading
+    location: data/shapes
+    filelist: data/shapes/filelist.txt
+    batch_size: 1
+    shuffle: False
+    # num_workers: 0
+
+
+MODEL:
+  name: graph_unet
+  resblock_type: basic
+
+  depth: 8
+  full_depth: 3
+  depth_out: 8
+  channel: 4
+  nout: 4

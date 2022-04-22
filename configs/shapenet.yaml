@@ -1,0 +1,77 @@
+SOLVER:
+  gpu: 0,
+  run: train
+
+  logdir: logs/shapenet/shapenet
+  max_epoch: 300
+  test_every_epoch: 20
+  log_per_iter: 50
+  ckpt_num: 40
+
+  # optimizer
+  type: adamw
+  weight_decay: 0.01  # default value of adamw
+  lr: 0.001           # default value of adamw
+
+  # learning rate
+  lr_type: poly
+  step_size: (160,240)
+
+DATA:
+  train:
+    name: shapenet
+
+    # octree building
+    depth: 6
+    offset: 0.0
+    full_depth: 3
+    node_dis: True
+    split_label: True
+
+    # data augmentation, add noise only
+    distort: True
+
+    # data loading
+    location: data/ShapeNet/dataset
+    filelist: data/ShapeNet/filelist/train.txt
+    load_sdf: True
+    batch_size: 16
+    shuffle: True
+    # num_workers: 0
+
+  test:
+    name: shapenet
+
+    # octree building
+    depth: 6
+    offset: 0.0
+    full_depth: 3
+    node_dis: True
+    split_label: True
+
+    # data augmentation, add noise only
+    distort: True
+
+    # data loading
+    location: data/ShapeNet/dataset
+    filelist: data/ShapeNet/filelist/val.txt
+    batch_size: 8
+    load_sdf: True
+    shuffle: False
+    # num_workers: 0
+
+
+MODEL:
+  name: graph_ounet
+
+  channel: 5
+  depth: 6
+  nout: 4
+  depth_out: 6
+  full_depth: 3
+  bottleneck: 4
+  resblock_type: basic
+
+LOSS:
+  name: shapenet
+  loss_type: sdf_reg_loss

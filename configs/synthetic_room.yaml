@@ -1,0 +1,78 @@
+SOLVER:
+  gpu: 0,
+  run: train
+
+  logdir: logs/room/room
+  max_epoch: 900
+  test_every_epoch: 10
+  log_per_iter: 40
+  ckpt_num: 20
+
+  type: adamw
+  lr: 0.001           # default value of adamw
+  weight_decay: 0.01  # default value of adamw
+  lr_type: poly
+  step_size: (80,120)
+
+
+DATA:
+  train:
+    name: synthetic_room
+
+    # octree building
+    depth: 7
+    offset: 0.0
+    full_depth: 3
+    node_dis: True
+    split_label: True
+
+    # data augmentation, add noise only
+    distort: True
+
+    # data loading
+    location: data/room/synthetic_room_dataset
+    filelist: data/room/filelist/train.txt
+    load_occu: True
+    sample_surf_points: True
+    batch_size: 16
+    shuffle: True
+    # num_workers: 0
+
+  test:
+    name: synthetic_room
+
+
+    # octree building
+    depth: 7
+    offset: 0.0
+    full_depth: 3
+    node_dis: True
+    split_label: True
+
+    # data augmentation, add noise only
+    distort: True
+
+    # data loading
+    location: data/room/synthetic_room_dataset
+    filelist: data/room/filelist/val.txt
+    load_occu: True
+    sample_surf_points: True
+    batch_size: 8
+    shuffle: False
+    # num_workers: 0
+
+
+MODEL:
+  name: graph_ounet
+
+  channel: 5
+  depth: 7
+  nout: 4
+  depth_out: 7
+  full_depth: 3
+  bottleneck: 4
+  resblock_type: basic
+
+LOSS:
+  name: synthetic_room
+  loss_type: possion_grad_loss

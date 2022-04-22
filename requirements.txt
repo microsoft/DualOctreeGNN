@@ -1,0 +1,13 @@
+torch
+numpy
+tqdm
+yacs
+scipy
+plyfile
+tensorboard
+scikit-image
+trimesh
+wget
+mesh2sdf
+setuptools==59.5.0
+matplotlib

@@ -1,0 +1,56 @@
+SOLVER:
+  gpu: 0,
+  run: train
+
+  logdir: logs/shapes/finetune
+  max_epoch: 6000
+  test_every_epoch: 100
+  log_per_iter: 50
+  ckpt_num: 200
+  ckpt: ''
+
+  # optimizer
+  type: adamw
+  weight_decay: 0.01  # default value of adamw
+  lr: 0.0001          
+
+  # learning rate
+  lr_type: constant
+
+
+DATA:
+  train: &id001
+    name: singlepointcloud
+    point_scale: 0.9
+    point_sample_num: 100000
+
+    # octree building
+    depth: 8
+    full_depth: 3
+    node_dis: True
+    split_label: True
+    offset: 0.0
+
+    # data loading
+    location: data/Shapes
+    filelist: data/Shapes/filelist/lucy.txt
+    batch_size: 1
+    # num_workers: 0
+
+  test: *id001
+
+
+MODEL:
+  name: graph_unet
+  resblock_type: basic
+  find_unused_parameters: True
+
+  depth: 8
+  full_depth: 3
+  depth_out: 8
+  channel: 4
+  nout: 4
+
+LOSS:
+  name: dfaust
+  loss_type: possion_grad_loss

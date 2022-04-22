@@ -1,0 +1,3 @@
+[submodule "solver"]
+	path = solver
+	url = https://github.com/wang-ps/solver-pytorch.git

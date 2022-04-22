@@ -1,0 +1,41 @@
+SOLVER:
+  gpu: 0,
+  run: evaluate
+  logdir: logs/shapenet_eval/test
+  ckpt: logs/shapenet/shapenet/checkpoints/00300.model.pth
+  sdf_scale: 0.9
+  resolution: 128
+
+
+DATA:
+  test:
+    name: pointcloud_eval
+
+    # octree building
+    depth: 6
+    offset: 0.0
+    full_depth: 3
+    node_dis: True
+    split_label: True
+
+    # data loading
+    # location: data/ShapeNet/dataset   # the original testing data
+    location: data/ShapeNet/test.input  # the generated testing data
+    filelist: data/ShapeNet/filelist/test.txt
+    batch_size: 1
+    shuffle: False
+    in_memory: False
+    # num_workers: 0
+
+
+MODEL:
+  name: graph_ounet
+
+  channel: 5
+  depth: 6
+  nout: 4
+  depth_out: 6
+  full_depth: 3
+  bottleneck: 4
+
+  resblock_type: basic

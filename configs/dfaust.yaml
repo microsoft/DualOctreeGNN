@@ -1,0 +1,70 @@
+SOLVER:
+  gpu: 0,
+  run: train
+
+  logdir: logs/dfaust/dfaust
+  max_epoch: 600
+  test_every_epoch: 10
+  log_per_iter: 50
+  ckpt_num: 200
+
+  # optimizer
+  type: adamw
+  weight_decay: 0.01  # default value of adamw
+  lr: 0.001           # default value of adamw
+
+  # learning rate
+  lr_type: poly
+  step_size: (200,300)
+
+
+DATA:
+  train:
+    name: pointcloud
+    point_scale: 1.0
+
+    # octree building
+    depth: 8
+    full_depth: 3
+    node_dis: True
+    split_label: True
+    offset: 0.0
+
+    # data loading
+    location: data/dfaust/dataset
+    filelist: data/dfaust/filelist/train.txt
+    batch_size: 16
+    # num_workers: 0
+
+  test:
+    name: pointcloud
+    point_scale: 1.0
+
+    # octree building
+    depth: 8
+    full_depth: 3
+    node_dis: True
+    split_label: True
+    offset: 0.0
+
+    # data loading
+    location: data/dfaust/dataset
+    filelist: data/dfaust/filelist/test.txt
+    batch_size: 4
+    # num_workers: 0
+
+
+MODEL:
+  name: graph_unet
+  resblock_type: basic
+  find_unused_parameters: True
+
+  depth: 8
+  full_depth: 3
+  depth_out: 8
+  channel: 4
+  nout: 4
+
+LOSS:
+  name: dfaust
+  loss_type: possion_grad_loss
