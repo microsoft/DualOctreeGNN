@@ -90,12 +90,20 @@ ACM Transactions on Graphics (SIGGRAPH), 41(4), 2022
     python tools/shapenet.py --run generate_dataset
     ```
 
-4. For convenience, we also provided the converted dataset, which can be
+4. If you just want to forward the pretrained network, the test point clouds
+   (330M) can be downloaded manually from
+   [here](https://www.dropbox.com/s/us28g6808srcop5/shapenet.test.input.zip?dl=0).
+   After downloading the zip file, unzip it to the folder
+   `data/ShapeNet/test.input`.
+
+<!-- 
+1. For convenience, we also provided the converted dataset, which can be
    downloaded via the following command.
 
     ```bash
     python tools/shapenet.py --run download_dataset
-    ```
+    ``` 
+-->
 
 ### 2.2 Experiment
 
