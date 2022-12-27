@@ -9,5 +9,5 @@ scikit-image
 trimesh
 wget
 mesh2sdf
-setuptools==59.5.0
+setuptools==65.5.1
 matplotlib
